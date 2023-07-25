@@ -1,0 +1,22 @@
+{
+  "topLevelString": "topLevelVal",
+  "topLevelStruct": {
+    "secondLevelString": "secondLevelVal"
+  },
+  "topLevelFlatArr": [
+      "foo",
+      "bar"
+  ],
+  "topLevelDoubleArr": [
+    ["foo", "bar"],
+    ["baz", "qux"]
+  ],
+  "topLevelArr": [
+    {
+      "secondLevelStructString": "foo"
+    },
+    {
+      "secondLevelStructString": "bar"
+    }
+  ]
+}

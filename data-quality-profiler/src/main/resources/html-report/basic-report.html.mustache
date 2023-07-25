@@ -1,0 +1,327 @@
+<html>
+<head>
+<style>
+
+@page {
+    margin-top: 10pt;
+    margin-bottom: 25pt;
+    margin-left: 10pt;
+    margin-right: 10pt;
+
+    @bottom-left {
+        content: url({{bottom_left_logo}});
+    }
+
+    @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+html { font-family: sans-serif, Helvetica, Arial; }
+
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+img.logo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-width: 15%;
+    max-height: 8%;
+}
+
+img.histogram {
+    width: 100%;
+    height: 50px;
+    margin: 5px 0px 5px 0px;
+}
+
+div.entries-table {
+    display: table;
+    margin-top: 0.5em;
+}
+
+div.entries-row {
+    display: table-row-group;
+    width: 100%;
+}
+
+div.entry-cell {
+    display: table-cell;
+    margin: 3px;
+}
+
+table.top10-profiles {
+    table-layout: auto;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.75em;
+}
+
+td.top10-cell {
+    vertical-align: top;
+    min-width: 4em;
+    padding: 0.15em;
+}
+
+.title-border {
+    border: 1px solid #888;
+}
+
+tr.top10-title-row {
+}
+
+tr.top10-profiles-row:nth-of-type(odd) {
+    background-color: #e8f2e8;
+}
+
+tr.top10-profiles-row:nth-of-type(even) {
+    background-color: #f7fbf7;
+}
+
+
+div.analysis-table {
+    display: table;
+    width: 100%;
+}
+
+div.analysis-row {
+    display: table-row-group;
+    width: 100%;
+}
+
+div.analysis-cell {
+    display: table-cell;
+    width: 25.00%;
+}
+div.analysis-caption {
+    display: table-caption;
+    width: 100.00%;
+}
+
+p {
+    font-size: 0.75em;
+    margin: 0;
+    word-break: break-all;
+}
+
+.entry-grid {
+    table-layout: fixed;
+    border: 0;
+    width: 100%;
+}
+td.entry-cell1 {
+    width: 16.66%;
+    vertical-align: top;
+}
+td.entry-cell2 {
+    width: 33.33%;
+    vertical-align: top;
+}
+p.title {
+    font-weight: bold;
+}
+p.analysis-title {
+    font-size: 1em;
+}
+p.contrasting {
+    background-color: #305530;
+    color: white;
+    padding: 3px;
+}
+.top10-count {
+    text-align: right;
+    font-weight: bold;
+}
+.sample {
+    {{sample_css_style}}
+}
+.topmargin{
+    margin-top: 0.75em;
+}
+.compliance-bar{
+    width: 100%;
+    background-color: white;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    position: relative;
+}
+.compliance-true-bar{
+    background-color: black;
+    height: 1em;
+    margin: 0;
+    padding: 0;
+/*    float: left; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
+}
+.compliance-cell {
+    text-align: left;
+    /*border: 1px solid #888;*/
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%;
+}
+.compliance-info-cell {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%; /* i am a circle */
+    display: inline-block;  /* i am a circle */
+    font-size: 0.75em;
+}
+.inner-compliance-cell-left{
+    width: 17px;
+    min-width: 17px;
+    max-width: 17px;
+}
+.percent-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    font-size: 0.75em;
+    text-align: right;
+    z-index: 1000;
+}
+</style>
+<title>{{ title }}</title>
+</head>
+<body>
+
+    <img class="logo" src="{{ logo_image_dataurl }}" />
+
+    <h1>Data Quality Report: {{ title }}</h1>
+    <p>Date: <b>{{ date }}</b></p>
+
+    <table>
+        <tr>
+            <th>Source</th>
+            <th>Unique Fields</th>
+            <th>Record Count</th>
+        </tr>
+        {{#sources}}
+        <tr>
+            <td>{{ name }}</td>
+            <td>{{ unique_field_count }}</td>
+            <td>{{ record_count }}</td>
+        </tr>
+        {{/sources}}
+    </table>
+
+    <div class="entries-table">
+        {{#rows}}
+        <div class="entries-row"><div class="entry-cell">
+            <p class="contrasting analysis-title">Field Path: <b>{{json_path}}</b> ({{percent_populated}}% of records populate this field)</p>
+
+            <table class="entry-grid">
+                <tr class="entry-grid-row">
+                    <td class="entry-cell2">
+                        <p class="title">Summary</p>
+                        <table class="top10-profiles">
+                            {{#summary}}
+                                <tr class="top10-profiles-row">
+                                    <td class="top10-cell top10-count"><p>{{name}}</p></td>
+                                    <td class="top10-cell"><p>{{value}}</p></td>
+                                </tr>
+                            {{/summary}}
+                        </table>
+
+                        <p class="title topmargin">Assertion Rule Compliance</p>
+
+                        <table class="top10-profiles">
+                            {{#assertionRuleCompliance}}
+                                <tr class="top10-profiles-row">
+                                    <td class="compliance-cell">
+
+                                        <table>
+                                            <tr>
+                                                <td class="inner-compliance-cell-left">
+                                                    <!-- coloured icon showing compliance RAG rating -->
+                                                    <div class="compliance-info-cell" style="background-color: #{{backgroundcolor}};"></div>
+                                                </td>
+                                                <td>
+                                                    <!-- name of rule, and some numbers -->
+                                                    <p><b>{{featureName}}</b></p>
+                                                    <p>True: {{trueCount}}, False: {{falseCount}}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                    <td class="compliance-cell">
+
+                                        <!-- full-width bar showing percentage -->
+                                        <div class="compliance-bar">
+                                            <!-- inner bar (width = percentage compliance) -->
+                                            <div class="compliance-true-bar" style="width: {{percentTrue}}%; background-color: #{{backgroundcolor}};"></div>
+                                            <!-- percentage number aligned to the right and overlaid onto bar -->
+                                            <div class="percent-number">{{percentTrue}}%</div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            {{/assertionRuleCompliance}}
+                        </table>
+                    </td>
+
+                    <td class="entry-cell2">
+                        <p class="title">High Grain Masks</p>
+                        <img class="histogram" src="{{highGrainHistogram}}" />
+                        <p><b>{{hg_count}}</b> distinct profile masks.</p>
+
+                        <table class="top10-profiles">
+                            <tr class="top10-title-row"><th colspan="2" class="title-border"><p class="title">Top 10 High Grain</p></th></tr>
+                            {{#top10_hg}}
+                                <tr class="top10-profiles-row">
+                                    <td class="top10-cell top10-count"><p>{{count}}</p></td>
+                                    <td class="top10-cell"><p>{{featureValue}}</p><p class="sample">({{sample}})</p></td>
+                                </tr>
+                            {{/top10_hg}}
+                            <tr class="top10-title-row"><th colspan="2" class="title-border"><p class="title">Bottom 10 High Grain</p></th></tr>
+                            {{#bottom10_hg}}
+                                <tr class="top10-profiles-row">
+                                    <td class="top10-cell top10-count"><p>{{count}}</p></td>
+                                    <td class="top10-cell"><p>{{featureValue}}</p><p class="sample">({{sample}})</p></td>
+                                </tr>
+                            {{/bottom10_hg}}
+                        </table>
+                    </td>
+
+                    <td class="entry-cell2">
+                        <p class="title">Low Graph Masks</p>
+                        <img class="histogram" src="{{lowGrainHistogram}}" />
+                        <p><b>{{lg_count}}</b> distinct profile masks.</p>
+
+                        <table class="top10-profiles">
+                            <tr class="top10-title-row"><th colspan="2" class="title-border"><p class="title">Top 10 Low Grain</p></th></tr>
+                            {{#top10_lg}}
+                                <tr class="top10-profiles-row">
+                                    <td class="top10-cell top10-count"><p>{{count}}</p></td>
+                                    <td class="top10-cell"><p>{{featureValue}}</p><p class="sample">({{sample}})</p></td>
+                                </tr>
+                            {{/top10_lg}}
+                            <tr class="top10-title-row"><th colspan="2" class="title-border"><p class="title">Bottom 10 Low Grain</p></th></tr>
+                            {{#bottom10_lg}}
+                                <tr class="top10-profiles-row">
+                                    <td class="top10-cell top10-count"><p>{{count}}</p></td>
+                                    <td class="top10-cell"><p>{{featureValue}}</p><p class="sample">({{sample}})</p></td>
+                                </tr>
+                            {{/bottom10_lg}}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+        </div></div>
+        {{/rows}}
+    </div>
+
+</body>
+</html>
