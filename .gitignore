@@ -1,7 +1,6 @@
 .idea
 target
 .bsp
-project
 !plugins.sbt
 **/*.metadata
 src/test/resources/*tmp*
