@@ -72,9 +72,31 @@ assembly / assemblyMergeStrategy := {
 }
 
 // these are all to allow local publishing to overwrite the version
+/** make a fat jar */
+artifact in (Compile, assembly) := {
+  val art = (artifact in (Compile, assembly)).value
+  art.withClassifier(Some("assembly"))
+}
+addArtifact(artifact in (Compile, assembly), assembly)
+/***/
+
+
+publishTo := Some(s"GitHub Apache Maven Packages" at s"https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY")}")
+credentials += Credentials(
+  "GitHub Package Registry",
+  "maven.pkg.github.com",
+  System.getenv("GITHUB_REPOSITORY_OWNER"),
+  System.getenv("GITHUB_TOKEN")
+)
+publishMavenStyle := true
+isSnapshot := true
+
+// these are all to allow local publishing to overwrite the version
 publishConfiguration := publishConfiguration.value.withOverwrite(true)
 publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
-isSnapshot := true
+
+Test / publishArtifact := false
+
 
 Compile / compile / wartremoverErrors ++= Seq(Wart.IterableOps, Wart.Throw, Wart.Null, Wart.Var, Wart.Return, Wart.OptionPartial, Wart.Any)
 Compile / compile / wartremoverExcluded += (LocalRootProject / baseDirectory).value / "src" / "test"
