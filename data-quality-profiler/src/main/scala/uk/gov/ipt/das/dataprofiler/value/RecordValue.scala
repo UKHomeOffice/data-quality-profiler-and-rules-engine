@@ -86,6 +86,7 @@ object RecordValue {
         case v: java.util.LinkedHashMap[String, Any] => ProfilableRecord.fromLinkedHashMap(linkedHashMap = v)
         case v: java.math.BigDecimal => DoubleValue(v.doubleValue()) // TODO do better, write tests against this
         case v: java.util.ArrayList[_] => ArrayValue(v.asScala.map{ RecordValue.fromAny })
+        case v: org.apache.avro.util.Utf8 => StringValue(v.toString)
         case foo =>
           throw new Exception(s"Unknown primtive type of in RecordValue.fromPrimitive: $foo, class: ${foo.getClass}")
       }

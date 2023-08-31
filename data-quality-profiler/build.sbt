@@ -63,6 +63,9 @@ libraryDependencies += "com.itextpdf" % "html2pdf" % "4.0.3"
 // https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler
 libraryDependencies += "com.github.spullara.mustache.java" % "compiler" % "0.9.10"
 
+//avro support
+libraryDependencies += "org.apache.avro" % "avro" % "1.11.2"
+
 
 Test / parallelExecution := true
 
