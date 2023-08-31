@@ -1,7 +1,7 @@
-ThisBuild / organization := "uk.gov.ipt.das"
+ThisBuild / organization := "io.github.6point6"
 ThisBuild / version      := "1.0.0"
 
-name := "das-data-profiler"
+name := "data-quality-profiler-and-rules-engine"
 
 scalaVersion := "2.12.15"
 
@@ -80,16 +80,6 @@ artifact in (Compile, assembly) := {
 addArtifact(artifact in (Compile, assembly), assembly)
 /***/
 
-
-publishTo := Some(s"GitHub Apache Maven Packages" at s"https://maven.pkg.github.com/${System.getenv("GITHUB_REPOSITORY")}")
-credentials += Credentials(
-  "GitHub Package Registry",
-  "maven.pkg.github.com",
-  System.getenv("GITHUB_REPOSITORY_OWNER"),
-  System.getenv("GITHUB_TOKEN")
-)
-publishMavenStyle := true
-isSnapshot := true
 
 // these are all to allow local publishing to overwrite the version
 publishConfiguration := publishConfiguration.value.withOverwrite(true)
