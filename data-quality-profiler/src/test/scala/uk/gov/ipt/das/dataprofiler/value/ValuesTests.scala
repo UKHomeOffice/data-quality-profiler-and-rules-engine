@@ -105,6 +105,11 @@ class ValuesTests extends AnyFunSpec {
 
     }
 
+    it("should return a string for a avro record value") {
+      val testValue = RecordValue.fromAny( new org.apache.avro.util.Utf8("foo"))
+      assertResult(testValue.asString)("foo")
+    }
+
   }
 
 }
