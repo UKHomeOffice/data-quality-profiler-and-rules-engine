@@ -1,5 +1,5 @@
 ThisBuild / organization := "io.github.6point6"
-ThisBuild / version      := "1.0.0"
+ThisBuild / version      := "1.1.0"
 
 name := "data-quality-profiler-and-rules-engine"
 
