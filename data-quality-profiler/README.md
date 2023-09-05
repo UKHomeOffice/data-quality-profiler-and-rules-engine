@@ -17,5 +17,15 @@ DAS Data Profiler provides the following:
 * Compound assertion rule definition (i.e. a set of sub-rules must all pass)
 * Human-readable Data Quality and Assertion Rule Compliance report output
 
+## Usage
+
+Releases are being managed by `6point6` at: https://github.com/6point6/data-quality-profiler-and-rules-engine
+
+Changes are pushed upstream to the `UKHomeOffice` repo at: https://github.com/UKHomeOffice/data-quality-profiler-and-rules-engine
+
+
+To use the Data Profiler classes, add the following dependency to your `build.sbt`, where the library is published to Maven Central:
+
+    libraryDependencies += "io.github.6point6" %% "data-quality-profiler-and-rules-engine" % "1.1.0"
 
 Licensed under the MIT License. See [LICENSE](LICENSE)
