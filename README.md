@@ -24,6 +24,25 @@ Provides the following:
 * Examples and Usage: [examples](examples)
 
 
+## Usage
+
+Releases are being managed by `6point6` at: https://github.com/6point6/data-quality-profiler-and-rules-engine
+
+Changes are pushed upstream to the `UKHomeOffice` repo at: https://github.com/UKHomeOffice/data-quality-profiler-and-rules-engine
+
+
+To use the Data Profiler classes, add the following dependency to your `build.sbt`, where the library is published to Maven Central:
+
+    libraryDependencies += "io.github.6point6" %% "data-quality-profiler-and-rules-engine" % "1.1.0"
+
+
+## Authors
+
+Feel free to contex the authors for help/assistance.
+
+Dr Daniel A. Smith - [dan.smith@6point6.co.uk](dan.smith@6point6.co.uk) - @danielsmith-eu
+
+
 # Licence
 
 Licensed under the MIT License. See [LICENSE](LICENSE)
