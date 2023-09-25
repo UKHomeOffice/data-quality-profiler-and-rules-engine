@@ -40,7 +40,7 @@ To use the Data Profiler classes, add the following dependency to your `build.sb
 
 Feel free to contex the authors for help/assistance.
 
-Dr Daniel A. Smith - [dan.smith@6point6.co.uk](dan.smith@6point6.co.uk) - @danielsmith-eu
+Dr Daniel A. Smith - [dan.smith@6point6.co.uk](mailto:dan.smith@6point6.co.uk) - [@danielsmith-eu](https://github.com/danielsmith-eu)
 
 
 # Licence
